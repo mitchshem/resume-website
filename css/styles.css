@@ -62,6 +62,25 @@ a:hover {
   color: var(--color-primary-hover);
 }
 
+/* External link indicator — subtle arrow on hover */
+.ext-link {
+  position: relative;
+}
+
+.ext-link::after {
+  content: ' \2197';
+  display: inline-block;
+  font-size: 0.75em;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all var(--transition);
+}
+
+.ext-link:hover::after {
+  opacity: 0.7;
+  transform: translateX(2px);
+}
+
 ul {
   list-style: none;
 }
@@ -82,6 +101,10 @@ img {
 
 .section {
   padding: 100px 0;
+}
+
+.section--compact {
+  padding-top: 60px;
 }
 
 .section__title {
@@ -279,7 +302,7 @@ img {
    Hero
    ======================================== */
 .hero {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   padding-top: var(--nav-height);
@@ -317,12 +340,38 @@ img {
   margin-bottom: 20px;
 }
 
-.hero__tagline {
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
+.hero__roles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   margin-bottom: 36px;
+}
+
+.hero__role {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.hero__role-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  min-width: 120px;
+}
+
+.hero__role-value {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.hero__role-value a {
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
 .hero__buttons {
@@ -921,6 +970,62 @@ img {
   letter-spacing: 0.5px;
 }
 
+.project__link svg {
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+.project__badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-accent);
+  background: rgba(232, 128, 76, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+/* ========================================
+   Timeline Highlights (project detail cards inside experience)
+   ======================================== */
+.timeline__highlights {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 20px;
+}
+
+.timeline__highlights .highlight {
+  padding: 16px 20px;
+  background: var(--color-bg-alt);
+}
+
+.timeline__highlights .highlight:hover {
+  background: var(--color-primary-light);
+}
+
+/* ========================================
+   Capstone
+   ======================================== */
+.education__capstone {
+  margin-top: 24px;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 24px;
+}
+
+.education__capstone .highlight {
+  background: var(--color-bg-alt);
+}
+
+.education__capstone .highlight:hover {
+  background: var(--color-primary-light);
+}
+
 /* ========================================
    Contact
    ======================================== */
@@ -1135,6 +1240,16 @@ img {
 
   .hero__socials {
     justify-content: center;
+  }
+
+  .hero__role {
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+  }
+
+  .hero__role-label {
+    min-width: auto;
   }
 
   .hero__photo-placeholder,
