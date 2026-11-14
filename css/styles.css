@@ -475,7 +475,38 @@ img {
    About
    ======================================== */
 .about {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background: var(--color-bg);
+}
+
+/* Subtle backdrop: a fading dot grid plus a soft teal glow */
+.about::before,
+.about::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.about::before {
+  inset: 0;
+  background-image: radial-gradient(rgba(45, 106, 106, 0.32) 1.4px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 55% 75% at 92% 45%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse 55% 75% at 92% 45%, #000 0%, transparent 70%);
+}
+
+.about::after {
+  width: 520px;
+  height: 520px;
+  right: -160px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45, 106, 106, 0.16) 0%, rgba(232, 128, 76, 0.08) 45%, transparent 70%);
+  filter: blur(10px);
 }
 
 .about__text {
@@ -579,6 +610,22 @@ img {
   border: 3px solid var(--color-bg-alt);
   z-index: 1;
   transition: all var(--transition);
+}
+
+/* Current role: soft pulsing ring */
+.timeline__dot--current::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  opacity: 0;
+  animation: dotPulse 2.4s var(--ease-out) infinite;
+}
+
+@keyframes dotPulse {
+  0% { transform: scale(0.6); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 .timeline__item:hover .timeline__dot {
@@ -989,6 +1036,49 @@ img {
 }
 
 /* ========================================
+   Timeline Toolkit (tool chips inside experience)
+   ======================================== */
+.timeline__tools {
+  margin-top: 20px;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 20px;
+}
+
+.timeline__tools-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.tools__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.tools__list li {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border: 1px solid transparent;
+  padding: 5px 12px;
+  border-radius: 999px;
+  transition: all var(--transition);
+}
+
+.tools__list li:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+/* ========================================
    Timeline Highlights (project detail cards inside experience)
    ======================================== */
 .timeline__highlights {
@@ -1347,7 +1437,23 @@ img {
 /* ========================================
    Reduced Motion
    ======================================== */
+@media (max-width: 768px) {
+  .about::before {
+    -webkit-mask-image: radial-gradient(ellipse 80% 45% at 85% 15%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 80% 45% at 85% 15%, #000 0%, transparent 70%);
+  }
+  .about::after {
+    width: 360px;
+    height: 360px;
+    right: -180px;
+    top: 0;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .timeline__dot--current::after { animation: none; }
+
   *,
   *::before,
   *::after {
