@@ -306,7 +306,6 @@ img {
   display: flex;
   align-items: center;
   padding-top: var(--nav-height);
-  background: var(--color-bg);
 }
 
 .hero__content {
@@ -476,36 +475,39 @@ img {
    ======================================== */
 .about {
   position: relative;
+}
+
+/* ========================================
+   Intro backdrop (spans hero + about):
+   a fading dot grid plus soft glows
+   ======================================== */
+.intro {
+  position: relative;
   overflow: hidden;
   isolation: isolate;
   background: var(--color-bg);
 }
 
-/* Subtle backdrop: a fading dot grid plus a soft teal glow */
-.about::before,
-.about::after {
+.intro::before,
+.intro::after {
   content: '';
   position: absolute;
+  inset: 0;
   pointer-events: none;
   z-index: -1;
 }
 
-.about::before {
-  inset: 0;
+.intro::before {
   background-image: radial-gradient(rgba(45, 106, 106, 0.32) 1.4px, transparent 1.4px);
   background-size: 22px 22px;
-  -webkit-mask-image: radial-gradient(ellipse 55% 75% at 92% 45%, #000 0%, transparent 70%);
-  mask-image: radial-gradient(ellipse 55% 75% at 92% 45%, #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 50% 60% at 90% 42%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 50% 60% at 90% 42%, #000 0%, transparent 72%);
 }
 
-.about::after {
-  width: 520px;
-  height: 520px;
-  right: -160px;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(45, 106, 106, 0.16) 0%, rgba(232, 128, 76, 0.08) 45%, transparent 70%);
+.intro::after {
+  background:
+    radial-gradient(circle 340px at calc(100% - 200px) 42vh, rgba(45, 106, 106, 0.16) 0%, rgba(232, 128, 76, 0.07) 50%, transparent 100%),
+    radial-gradient(circle 300px at 100% 78%, rgba(45, 106, 106, 0.12) 0%, rgba(232, 128, 76, 0.05) 50%, transparent 100%);
   filter: blur(10px);
 }
 
@@ -573,6 +575,7 @@ img {
    ======================================== */
 .experience {
   background: var(--color-bg-alt);
+  overflow-x: clip;
 }
 
 .timeline {
@@ -889,84 +892,10 @@ img {
 }
 
 /* ========================================
-   Certifications
-   ======================================== */
-.certifications {
-  background: var(--color-bg-alt);
-}
-
-.certs__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-}
-
-.cert__card {
-  display: flex;
-  gap: 20px;
-  background: var(--color-surface);
-  border-radius: var(--radius);
-  padding: 32px;
-  border: 1px solid var(--color-border-light);
-  transition: all var(--transition);
-}
-
-.cert__card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-}
-
-.cert__icon {
-  flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--color-primary-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-primary);
-}
-
-.cert__name {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.cert__issuer {
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.cert__validity {
-  font-size: 0.82rem;
-  color: var(--color-text-muted);
-  margin-bottom: 12px;
-}
-
-.cert__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  transition: gap var(--transition);
-}
-
-.cert__link:hover {
-  gap: 10px;
-}
-
-/* ========================================
    Projects
    ======================================== */
 .projects {
-  background: var(--color-bg);
+  background: var(--color-bg-alt);
 }
 
 .projects__grid {
@@ -1130,7 +1059,7 @@ img {
    Contact
    ======================================== */
 .contact {
-  background: var(--color-bg-alt);
+  background: var(--color-bg);
 }
 
 .contact__content {
@@ -1423,31 +1352,20 @@ img {
     width: 100%;
   }
 
-  .certs__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cert__card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
 }
 
 /* ========================================
    Reduced Motion
    ======================================== */
 @media (max-width: 768px) {
-  .about::before {
-    -webkit-mask-image: radial-gradient(ellipse 80% 45% at 85% 15%, #000 0%, transparent 70%);
-    mask-image: radial-gradient(ellipse 80% 45% at 85% 15%, #000 0%, transparent 70%);
+  .intro::before {
+    -webkit-mask-image: radial-gradient(ellipse 90% 40% at 50% 12%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse 90% 40% at 50% 12%, #000 0%, transparent 72%);
   }
-  .about::after {
-    width: 360px;
-    height: 360px;
-    right: -180px;
-    top: 0;
-    transform: none;
+  .intro::after {
+    background:
+      radial-gradient(circle 220px at 50% 220px, rgba(45, 106, 106, 0.16) 0%, rgba(232, 128, 76, 0.07) 50%, transparent 100%),
+      radial-gradient(circle 220px at 100% 60%, rgba(45, 106, 106, 0.10) 0%, transparent 100%);
   }
 }
 
